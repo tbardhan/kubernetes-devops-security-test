@@ -19,11 +19,12 @@ pipeline {
               }
             }
       }
-      stage('SonarQube - SAST') {
-            steps {             
-             sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://13.91.86.55:9000"
+stage('SonarQube - SAST') {
+      steps {
+           sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://13.91.86.55:9000 -Dsonar.java.jdkHome=/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home"
         }
 	}	
+	
 
       stage('Docker Build and Push') {
             steps {
