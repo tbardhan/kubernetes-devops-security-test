@@ -21,9 +21,9 @@ pipeline {
       }
 stage('SonarQube - SAST') {
       steps {
-           sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://13.91.86.55:9000 -Dsonar.java.jdkHome=/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home"
+           sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://13.91.86.55:9000 -Dsonar.login=f2aaeb481bd7e594f3ee7bf6d142c0b7cb22ae6c"
         }
-	}	
+}
 	
 
       stage('Docker Build and Push') {
