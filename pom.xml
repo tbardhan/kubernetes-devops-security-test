@@ -73,7 +73,9 @@
 			    <configuration>
 			     <format>ALL</format>
 			     <failBuildOnCVSS>5</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 5 -->   
-			   
+			    </configuration>
+			   </plugin>
+
 		        <plugin>
                  <groupId>org.codehaus.mojo</groupId>
                  <artifactId>sonar-maven-plugin</artifactId>
