@@ -87,7 +87,7 @@ pipeline {
     //    }   
     // }
     //}
-    
+
     stage('K8S Deployment - DEV') {
       steps {
          parallel(
@@ -110,6 +110,8 @@ post {
            jacoco execPattern: 'target/jacoco.exec'
            dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
   }
+}
+
 }
 
 }
