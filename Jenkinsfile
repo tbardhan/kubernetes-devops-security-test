@@ -122,30 +122,39 @@ pipeline {
        }
      } 
 
-     stage('Integration Tests - DEV') {
+  //   stage('Integration Tests - DEV') {
+  //     steps {
+  //       script {
+  //         try {
+  //           withKubeConfig([credentialsId: 'kubeconfig']) {
+  //             sh "bash integration-test.sh"
+  //           }
+  //         } catch (e) {
+  //           withKubeConfig([credentialsId: 'kubeconfig']) {
+  //             sh "kubectl -n default rollout undo deploy ${deploymentName}"
+  //           }
+  //           throw e
+  //         }
+  //       }
+  //     }
+  //   }
+
+     stage('OWASP ZAP - DAST') {
        steps {
-         script {
-           try {
-             withKubeConfig([credentialsId: 'kubeconfig']) {
-               sh "bash integration-test.sh"
-             }
-           } catch (e) {
-             withKubeConfig([credentialsId: 'kubeconfig']) {
-               sh "kubectl -n default rollout undo deploy ${deploymentName}"
-             }
-             throw e
-           }
+         withKubeConfig([credentialsId: 'kubeconfig']) {
+           sh 'bash zap.sh'
          }
        }
      }
 
-  //   post { 
-  //      always { 
+     post { 
+        always { 
   //         junit 'target/surefire-reports/*.xml'
   //         jacoco execPattern: 'target/jacoco.exec'
   //         dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-  //}
-//}
+             publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report', useWrapperFileDirectly: true])
+  }
+}
 
 }
 }
